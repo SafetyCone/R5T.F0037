@@ -16,10 +16,24 @@ namespace System
 			Instances.ProgramBuilderOperator.Run_Synchronous<TProgram>(programBuilder);
 		}
 
+		public static async Task Run_Synchronous<TProgram>(this Task<ProgramBuilder> gettingProgramBuilder)
+			where TProgram : class, ISynchronousProgram
+		{
+			var programBuilder = await gettingProgramBuilder;
+
+			Instances.ProgramBuilderOperator.Run_Synchronous<TProgram>(programBuilder);
+		}
+
 		public static Task Run<TProgram>(this ProgramBuilder programBuilder)
 			where TProgram : class, IAsynchronousProgram
 		{
 			return Instances.ProgramBuilderOperator.Run<TProgram>(programBuilder);
+		}
+
+		public static Task Run<TProgram>(this Task<ProgramBuilder> gettingProgramBuilder)
+			where TProgram : class, IAsynchronousProgram
+		{
+			return Instances.ProgramBuilderOperator.Run<TProgram>(gettingProgramBuilder);
 		}
 	}
 }

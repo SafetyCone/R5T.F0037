@@ -23,6 +23,14 @@ namespace R5T.F0037
 			program.Run();
         }
 
+		public async Task Run<TProgram>(Task<ProgramBuilder> gettingProgramBuilder)
+			where TProgram : class, IAsynchronousProgram
+		{
+			var programBuilder = await gettingProgramBuilder;
+
+			await this.Run<TProgram>(programBuilder);
+		}
+
 		public async Task Run<TProgram>(ProgramBuilder programBuilder)
 			where TProgram : class, IAsynchronousProgram
 		{
